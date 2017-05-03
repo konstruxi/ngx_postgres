@@ -187,7 +187,7 @@
         url_variable.len = 0;
         //fprintf(stdout, "something here %s\n", p);
 
-        while((u_char *) url_variable.len < (redirect + size) - (p + 1)) {
+        while(url_variable.len < (redirect + size) - (p + 1)) {
           u_char *n = url_variable.data + url_variable.len;
           if (*n == '\0' || *n == '=' || *n == '&' || *n == '-' || *n == '%' || *n == '/' || *n == '#' || *n == '?' || *n == ':')
             break;
