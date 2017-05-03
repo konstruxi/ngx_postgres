@@ -187,7 +187,7 @@
         url_variable.len = 0;
         //fprintf(stdout, "something here %s\n", p);
 
-        while(url_variable.len < (redirect + size) - (p + 1)) {
+        while((u_char *) url_variable.len < (redirect + size) - (p + 1)) {
           u_char *n = url_variable.data + url_variable.len;
           if (*n == '\0' || *n == '=' || *n == '&' || *n == '-' || *n == '%' || *n == '/' || *n == '#' || *n == '?' || *n == ':')
             break;
@@ -467,7 +467,6 @@ ngx_postgres_rewrite_valid(ngx_http_request_t *r,
       values[i] = columned[i] = variables[i] = NULL;
     }
     
-    int size = 0;
     // find callback
     if (pgrcf->methods_set & r->method) {
       rewrite = pgrcf->methods->elts;

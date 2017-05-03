@@ -235,7 +235,7 @@ done:
 }
 
 
-bool is_variable_character(char *p) {
+bool is_variable_character(u_char *p) {
     return ((*p >= '0' && *p <= '9') || 
             (*p >= 'a' && *p <= 'z') ||
             (*p >= 'A' && *p <= 'Z') || *p == '_');
@@ -372,7 +372,7 @@ int generate_prepared_query(ngx_http_request_t *r, char *query, u_char *data, in
                     int i = 0;
                     for (; i < *paramnum; i++) {
                         if (strncmp(names[i], (char *) p, f - p) == 0
-                        && !is_variable_character(names[i] + (f - p))) {
+                        && !is_variable_character((u_char *) names[i] + (f - p))) {
                             break;
                         }
                     }
@@ -460,7 +460,7 @@ int generate_prepared_query(ngx_http_request_t *r, char *query, u_char *data, in
                     int i = 0;
                     for (; i < *paramnum; i++) {
                         if (strncmp(names[i], (char *) p, f - p) == 0
-                        && !is_variable_character(names[i] + (f - p))) {
+                        && !is_variable_character((u_char *) names[i] + (f - p))) {
                             break;
                         }
                     }
