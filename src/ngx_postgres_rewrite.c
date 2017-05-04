@@ -467,7 +467,6 @@ ngx_postgres_rewrite_valid(ngx_http_request_t *r,
       values[i] = columned[i] = variables[i] = NULL;
     }
     
-    int size = 0;
     // find callback
     if (pgrcf->methods_set & r->method) {
       rewrite = pgrcf->methods->elts;

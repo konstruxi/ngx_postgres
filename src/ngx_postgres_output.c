@@ -207,13 +207,12 @@ ngx_postgres_output_hex(ngx_http_request_t *r, PGresult *res)
 
     char *value = PQgetvalue(res, 0, 0);
 
-    int start = 0;
+    unsigned int start = 0;
     if (value[start] == '\\')
         start++;
     if (value[start] == 'x')
         start++;
 
-    int i = 0;
     for (; start < size; start += 2)
         *(b->last++) = hex2bin(value + start);
     //if (b->last != b->end) {
@@ -858,7 +857,7 @@ ngx_postgres_output_json(ngx_http_request_t *r, PGresult *res)
             ngx_str_t export_variable;
             for (col = 0; col < col_count; col++) {
                 char *col_name = PQfname(res, col);
-                export_variable.data = col_name;
+                export_variable.data = (u_char *)col_name;
                 export_variable.len = strlen(col_name);
 
                 ngx_uint_t meta_variable_hash = ngx_hash_key(export_variable.data, export_variable.len);
@@ -869,7 +868,7 @@ ngx_postgres_output_json(ngx_http_request_t *r, PGresult *res)
                     char *exported_value = ngx_palloc(r->main->pool, exported_length);
                     ngx_memcpy(exported_value, PQgetvalue(res, 0, col), exported_length);
                     raw_meta->len = exported_length;
-                    raw_meta->data = exported_value;
+                    raw_meta->data = (u_char *)exported_value;
                 }
             }
         }
